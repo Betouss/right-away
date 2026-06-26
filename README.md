@@ -4,6 +4,8 @@
 
 A community-driven project generator. Pick your framework, package manager and dependencies, then download a ready-to-run project or copy the CLI command. No boilerplate, no setup.
 
+![](.github/assets/screenshot.png)
+
 ---
 
 ## The problem
