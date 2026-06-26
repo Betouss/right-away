@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null)

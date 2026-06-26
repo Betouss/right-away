@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useConfig } from '../context'
 import { CATALOG } from '../data'
 

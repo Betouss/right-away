@@ -1,4 +1,3 @@
-import React from 'react'
 import { useConfig } from '../context'
 import type { Language } from '../types'
 

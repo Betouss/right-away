@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useConfig } from '../context'
 import { buildCli } from '../utils'
 import { FRAMEWORKS, PACKAGE_MANAGERS } from '../data'

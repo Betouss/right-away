@@ -1,4 +1,3 @@
-import React from 'react'
 import { useConfig } from '../context'
 import { buildTree } from '../utils'
 
@@ -38,7 +37,6 @@ export default function ProjectTree() {
       }}>
         {lines.map((ln, i) => {
           const indent = ln.depth * 16
-          const prefix = ln.depth === 0 ? '' : '  '.repeat(ln.depth - 1) + (ln.isDir ? '┣ ' : '┣ ')
           return (
             <div
               key={i}

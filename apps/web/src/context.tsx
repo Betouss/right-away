@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import type { ProjectConfig } from './types'
 
 const DEFAULT_CONFIG: ProjectConfig = {
