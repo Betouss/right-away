@@ -1,0 +1,15 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #0a0b0d; color: #e8eaed; -webkit-font-smoothing: antialiased; }
+input, button, select, textarea { font-family: inherit; }
+input:focus, textarea:focus { outline: none; }
+select:focus { outline: none; }
+::placeholder { color: #565c66; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #23262d; border-radius: 10px; border: 2px solid #0a0b0d; }
+::-webkit-scrollbar-thumb:hover { background: #30343c; }
+@keyframes raSlideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes raFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes raToast { 0% { opacity: 0; transform: translateY(12px); } 12% { opacity: 1; transform: translateY(0); } 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(12px); } }
+@keyframes raPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }

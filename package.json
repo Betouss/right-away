@@ -1,0 +1,11 @@
+{
+  "name": "right-away",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+    "build": "pnpm --filter shared build && pnpm --filter api build && pnpm --filter web build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
