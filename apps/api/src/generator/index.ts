@@ -581,6 +581,26 @@ model User {
 `
 }
 
+function buildDrizzleConfig(config: ProjectConfig): string {
+  const usePostgres = config.dependencies.includes('docker' as DependencyId)
+  const dialect = usePostgres ? 'postgresql' : 'sqlite'
+  const fallbackUrl = usePostgres
+    ? 'postgres://postgres:postgres@localhost:5432/postgres'
+    : 'file:./dev.db'
+
+  return `import { defineConfig } from 'drizzle-kit'
+
+export default defineConfig({
+  schema: './src/db/schema.ts',
+  out: './drizzle',
+  dialect: '${dialect}',
+  dbCredentials: {
+    url: process.env.DATABASE_URL ?? '${fallbackUrl}',
+  },
+})
+`
+}
+
 function buildDockerfile(config: ProjectConfig): string {
   const pm = config.packageManager
   const installCmd = pm === 'yarn' ? 'yarn install --frozen-lockfile'
@@ -873,6 +893,10 @@ export function generateProject(config: ProjectConfig): archiver.Archiver {
 
   if (deps.includes('prisma')) {
     append('prisma/schema.prisma', buildPrismaSchema())
+  }
+
+  if (deps.includes('drizzle')) {
+    append('drizzle.config.ts', buildDrizzleConfig(config))
   }
 
   if (deps.includes('docker')) {
