@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import request from 'supertest'
+import JSZip from 'jszip'
 import app from '../app'
 
 const base = {
@@ -74,5 +75,43 @@ describe('POST /api/generate', () => {
     expect(res.status).toBe(200)
     const buf = res.body as Buffer
     expect(buf.length).toBeGreaterThan(0)
+  })
+
+  it('includes drizzle.config.ts with sqlite dialect when drizzle is selected', async () => {
+    const res = await request(app)
+      .post('/api/generate')
+      .set('Content-Type', 'application/json')
+      .send({ ...base, dependencies: ['drizzle'] })
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = []
+        res.on('data', (chunk: Buffer) => chunks.push(chunk))
+        res.on('end', () => callback(null, Buffer.concat(chunks)))
+      })
+    expect(res.status).toBe(200)
+    const zip = await JSZip.loadAsync(res.body as Buffer)
+    const file = zip.file('drizzle.config.ts')
+    expect(file).not.toBeNull()
+    const content = await file!.async('string')
+    expect(content).toContain("dialect: 'sqlite'")
+  })
+
+  it('uses postgresql dialect in drizzle.config.ts when docker is also selected', async () => {
+    const res = await request(app)
+      .post('/api/generate')
+      .set('Content-Type', 'application/json')
+      .send({ ...base, dependencies: ['drizzle', 'docker'] })
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = []
+        res.on('data', (chunk: Buffer) => chunks.push(chunk))
+        res.on('end', () => callback(null, Buffer.concat(chunks)))
+      })
+    expect(res.status).toBe(200)
+    const zip = await JSZip.loadAsync(res.body as Buffer)
+    const file = zip.file('drizzle.config.ts')
+    expect(file).not.toBeNull()
+    const content = await file!.async('string')
+    expect(content).toContain("dialect: 'postgresql'")
   })
 })

@@ -582,7 +582,7 @@ model User {
 }
 
 function buildDrizzleConfig(config: ProjectConfig): string {
-  const usePostgres = config.dependencies.includes('docker' as DependencyId)
+  const usePostgres = config.dependencies.includes('docker')
   const dialect = usePostgres ? 'postgresql' : 'sqlite'
   const fallbackUrl = usePostgres
     ? 'postgres://postgres:postgres@localhost:5432/postgres'
